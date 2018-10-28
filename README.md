@@ -1,2 +1,2 @@
 # TicTacToe
-basic java tictactoe
+download the .jar file and double click to run
