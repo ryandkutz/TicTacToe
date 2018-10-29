@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 
 
@@ -7,17 +8,32 @@ public class TicTacToe extends TTCFrame implements ActionListener {
 	static Boolean isXWin;
 	static int turn = 0;
 	static TTCButton[] buttons = new TTCButton[9];
+	MenuBar TTCBar;
+	Menu options;
+	Menu io;
+	MenuItem open;
+	MenuItem restart;
+	MenuItem setDir;
+	static String dir;
 	
 	public TicTacToe()
 	{
 		super("TicTacToe", 500, 500);
-		MenuBar TTCBar = new MenuBar();
-		Menu options = new Menu("Menu");
-		MenuItem restart = new MenuItem("Restart");
+		TTCBar = new MenuBar();
+		options = new Menu("Menu");
+		io = new Menu("I/O");
+		restart = new MenuItem("Restart");
+		open = new MenuItem("Open");
+		setDir = new MenuItem("Set Dir.");
 		options.add(restart);
+		io.add(open);
+		io.add(setDir);
 		TTCBar.add(options);
+		TTCBar.add(io);
 		setMenuBar(TTCBar);
 		restart.addActionListener(this);
+		open.addActionListener(this);
+		setDir.addActionListener(this);
 		startButtons();
 		JOptionPane.showMessageDialog(null, "Hi and welcome to TicTacToe by your BOY Ryan K\n\nX always goes first. To restart click Restart under the Menu dropdown");
 	}
@@ -58,6 +74,8 @@ public class TicTacToe extends TTCFrame implements ActionListener {
 		for (int i = 0; i < buttons.length; i++)
     	{
     		buttons[i] = new TTCButton();
+    		buttons[i].setNum(i);
+    		System.out.println(i + " set to " + i);
     		add(buttons[i]);
     		setVisible(true);
     	}
@@ -184,7 +202,15 @@ public class TicTacToe extends TTCFrame implements ActionListener {
     @Override
 	public void actionPerformed(ActionEvent e)
 	{
-		resetAll();
+    	if (e.getSource() == restart)
+    	{
+    		resetAll();
+    	}
+    	else if(e.getSource() == setDir)
+    	{
+    		dir = TTCFile.getFileDir();
+    		TTCFile.newFile(dir);
+    	}
 	}
     
     
