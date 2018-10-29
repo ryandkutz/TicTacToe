@@ -68,7 +68,7 @@ public class TTCFile {
 	
 	public static String getFileDir()
 	{
-		String fileDir = getDirPrompt() + "\\" + dateAsString() + ".txt";
+		String fileDir = getDirPrompt() + "\\" + dateAsString() + ".dat";
 		System.out.println(fileDir);
 		return fileDir;
 	}
