@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.awt.event.*;
-
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import javax.swing.*;
 
 
@@ -79,6 +81,31 @@ public class TicTacToe extends TTCFrame implements ActionListener {
     		add(buttons[i]);
     		setVisible(true);
     	}
+	}
+	
+	public void playback()
+	{
+		try {
+			Scanner reader = new Scanner(new File(dir));
+			turn = 0;
+			while(reader.hasNextInt())
+				{ 
+					System.out.println("made it into scanner loop");
+					int move = reader.nextInt();
+					buttons[move].forceAction();
+					System.out.println("button action forced");
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			System.out.println("loop over");
+		}
+		catch(FileNotFoundException x)
+		{
+			System.out.println("oof my files");
+		}
 	}
 	
 
@@ -206,12 +233,16 @@ public class TicTacToe extends TTCFrame implements ActionListener {
     	{
     		resetAll();
     	}
-    	else if(e.getSource() == setDir)
+    	else if (e.getSource() == setDir)
     	{
     		dir = TTCFile.getFileDir();
     		TTCFile.newFile(dir);
     	}
+    	else if (e.getSource() == open)
+    	{
+    		dir = TTCFile.getFilePrompt();
+    		playback();
+    	}
 	}
-    
     
 }

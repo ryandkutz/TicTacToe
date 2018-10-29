@@ -37,9 +37,7 @@ public class TTCButton extends Button implements ActionListener {
 	
 	public void forceAction()
 	{
-		System.out.println("button clicked");
-		try
-		{
+		System.out.println("button force-clicked");
 		if (TicTacToe.getTurn() % 2 == 0)
 		{
 			setLabel("x");
@@ -53,11 +51,6 @@ public class TTCButton extends Button implements ActionListener {
 			setClickable(false);
 			TicTacToe.turn++;
 			TicTacToe.checkWinner();
-		}
-		}
-		catch(ArithmeticException ae)
-		{
-			
 		}
 	}
 	

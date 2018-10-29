@@ -1,8 +1,6 @@
 import java.io.*;
-
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileSystemView;
-import java.util.Scanner;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
