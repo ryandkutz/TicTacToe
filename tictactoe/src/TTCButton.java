@@ -66,8 +66,6 @@ public class TTCButton extends Button implements ActionListener {
 	public void actionPerformed(ActionEvent e)
 	{
 		System.out.println("button clicked");
-		try
-		{
 		if (TicTacToe.getTurn() % 2 == 0)
 		{
 			setLabel("x");
@@ -75,16 +73,22 @@ public class TTCButton extends Button implements ActionListener {
 			BufferedWriter out = null;
 			FileWriter writer = null;
 			try {
-				writer = new FileWriter(TicTacToe.dir, true);
-				out = new BufferedWriter(writer);
-				out.write(new Integer(getNum(this)).toString());
-				out.newLine();
-				System.out.println("writer wrote " + getNum(this));
-				out.flush();
+				try {
+					writer = new FileWriter(TicTacToe.dir, true);
+					out = new BufferedWriter(writer);
+					out.write(new Integer(getNum(this)).toString());
+					out.newLine();
+					System.out.println("writer wrote " + getNum(this));
+					out.flush();
+					}
+				catch (IOException io)
+				{
+					System.out.println(io);
+				}
 			}
-			catch (IOException io)
+			catch (NullPointerException npe)
 			{
-				System.out.println(io);
+				System.out.println("NPE LUL");
 			}
 			TicTacToe.turn++;
 			TicTacToe.checkWinner();
@@ -95,25 +99,30 @@ public class TTCButton extends Button implements ActionListener {
 			setClickable(false);
 			BufferedWriter out = null;
 			FileWriter writer = null;
-			try {
-				writer = new FileWriter(TicTacToe.dir, true);
-				out = new BufferedWriter(writer);
-				out.write(new Integer(getNum(this)).toString());
-				out.newLine();
-				System.out.println("writer wrote " + getNum(this));
-				out.close();
-			}
-			catch (IOException io)
+			try
 			{
-				io.printStackTrace();
+				try 
+				{
+					writer = new FileWriter(TicTacToe.dir, true);
+					out = new BufferedWriter(writer);
+					out.write(new Integer(getNum(this)).toString());
+					out.newLine();
+					System.out.println("writer wrote " + getNum(this));
+					out.close();
+				}
+				catch (IOException io)
+				{
+					io.printStackTrace();
+				}
+			}
+			catch (NullPointerException npe)
+			{
+				System.out.println("NPE LUL");
 			}
 			TicTacToe.turn++;
 			TicTacToe.checkWinner();
 		}
-		}
-		catch(ArithmeticException ae)
-		{
-			
-		}
+		
 	}
 }
+
